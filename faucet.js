@@ -46,9 +46,9 @@ app.post('/faucet', async (req, res) => {
         const nftContract = new ethers.Contract(nftContractAddress, nftContractABI, provider);
         const balance = await nftContract.hasMintedAlready(userAddress);
 
-        // if (!balance) {
-        //     return res.status(400).send('No NFT found in the given address.');
-        // }
+        if (!balance) {
+            return res.status(400).send('No NFT found in the given address.');
+        }
 
         // Send 0.01 ETH to the user's address
         const tx = await faucetWallet.sendTransaction({
